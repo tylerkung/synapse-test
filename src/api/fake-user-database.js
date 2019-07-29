@@ -26,6 +26,22 @@ export const getUserFromLocal = (email, password) => {
     throw new Error("User not found");
 };
 
+export const getCurrentUser = () => {
+    return localStorage['currentUser'];
+}
+
+export const getCurrentUserId = () => {
+    return localStorage['currentUserId'];
+}
+
+export const getCurrentUserRefreshToken = () => {
+    return localStorage['currentUserRefreshToken'];
+}
+
+export const storeCurrentOauth = (oauthKey) => {
+    localStorage['currentOauthKey'] = oauthKey;
+}
+
 export const storeUser = (email, password, userId) => {
     localStorage[getUserLocalStorageKey(email)] = JSON.stringify({
         email,

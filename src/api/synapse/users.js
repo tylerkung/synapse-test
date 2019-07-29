@@ -51,5 +51,19 @@ export default {
         }
 
         return user;
+    },
+
+    oauthUser: async (userId, refreshToken) => {
+        const response = await fetch(`${synapseProxy}/oauth/${userId}`, {
+            method: "POST",
+            headers: synapseHeader,
+            body: JSON.stringify({
+                refresh_token: refreshToken
+            })
+        });
+
+        const responseObj = await response.json();
+        // console.log(responseObj);
+        return responseObj;
     }
 };

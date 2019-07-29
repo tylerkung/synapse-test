@@ -13,7 +13,7 @@ const Styles = stycom.div`
     }
 `;
 
-const Home = ({ onClickRegister, onClickLogin }) => {
+const Home = ({ onClickRegister, onClickLogin, onClickViewUser, onClickOauth, onClickLogOut }) => {
     return (
         <Styles>
             <Button
@@ -25,6 +25,15 @@ const Home = ({ onClickRegister, onClickLogin }) => {
             </Button>
             <Button onClick={onClickLogin} color="primary">
                 Log In
+            </Button>
+            <Button onClick={onClickViewUser} color="secondary">
+                View User
+            </Button>
+            <Button onClick={onClickOauth} color="secondary">
+                Oauth User
+            </Button>
+            <Button onClick={onClickLogOut} color="secondary">
+                Log Out
             </Button>
         </Styles>
     );

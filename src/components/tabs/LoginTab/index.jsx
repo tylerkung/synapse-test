@@ -1,27 +1,52 @@
-import React, { useState } from "react";
+import React, { Component } from "react";
+import { connect } from 'react-redux';
 import { withRouter } from "react-router-dom";
+
+import { login } from '../../../actions';
 import Login from "./Login";
 import { Auth } from "../../../auth";
 
-const LoginView = ({ history }) => {
-    const [error, setError] = useState("");
-    const [loading, setLoading] = useState(false);
 
-    const login = async ({ email, password }) => {
-        try {
-            setLoading(true);
-            const user = await Auth.login(email, password);
+class LoginView extends Component {
+    constructor(props){
+        super(props);
 
-            if (user) {
-                history.push("/");
-            }
-        } catch (error) {
-            setError(error.message);
-            setLoading(false);
+        this.state = {
+            error: '',
+            loading: false
         }
-    };
+    }
 
-    return <Login onSubmitLogin={login} loading={loading} error={error} />;
-};
+    render(){
+        const login = async ({ email, password }) => {
+            try {
+                this.setState({loading: true});
+                const user = await Auth.login(email, password);
 
-export default withRouter(LoginView);
+                if (user) {
+                    this.props.login(user);
+                    console.log(this.props);
+                    // localStorage['loggedIn'] = true;
+                    // localStorage['currentUser'] = JSON.stringify(user);
+                    // localStorage['currentUserId'] = user._id;
+                    // localStorage['currentUserRefreshToken'] = user.refresh_token;
+                    this.props.history.push("/");
+                }
+            } catch (error) {
+                this.setState({
+                    error: error.message,
+                    loading: false
+                })
+            }
+        };
+        return (
+            <Login onSubmitLogin={login} loading={this.state.loading} error={this.state.error} />
+        );
+    }
+}
+
+const mapStateToProps = (state) => {
+    return { currentUser: state.currentUser };
+}
+
+export default withRouter(connect(mapStateToProps, { login })(LoginView));
