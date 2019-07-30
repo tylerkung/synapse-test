@@ -2,10 +2,8 @@ import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { withRouter } from "react-router-dom";
 
-import { login, oauth } from '../../../actions';
-import Login from "./Login";
-import { Auth } from "../../../auth";
-
+import { linkBank } from '../../../actions';
+import Bank from "./Bank";
 
 class LoginView extends Component {
     constructor(props){
@@ -18,17 +16,17 @@ class LoginView extends Component {
     }
 
     render(){
-        const login = async ({ email, password }) => {
+        const linkBank = async ({ username, password }) => {
             try {
                 this.setState({loading: true});
-                const user = await Auth.login(email, password);
-
-                if (user) {
-                    delete sessionStorage['oauth_key'];
-                    this.props.login(user); //sets Redux state login credentials, loggedIn status
-                    this.props.oauth({id: user._id, refreshToken: user.refresh_token});
-                    this.props.history.push("/"); //go to homepage
+                const bankCredentials = {
+                    id: this.props.currentUser._id,
+                    username,
+                    password,
+                    oauth_key: this.props.currentUser.oauth.oauth_key
                 }
+                this.props.linkBank(bankCredentials);
+                this.props.history.push("/"); //go to homepage
             } catch (error) {
                 this.setState({
                     error: error.message,
@@ -37,7 +35,7 @@ class LoginView extends Component {
             }
         };
         return (
-            <Login onSubmitLogin={login} loading={this.state.loading} error={this.state.error} />
+            <Bank onSubmitLinkBank={linkBank} loading={this.state.loading} error={this.state.error} />
         );
     }
 }
@@ -49,4 +47,4 @@ const mapStateToProps = (state) => {
     };
 }
 
-export default withRouter(connect(mapStateToProps, { login, oauth })(LoginView));
+export default withRouter(connect(mapStateToProps, { linkBank })(LoginView));

@@ -6,8 +6,22 @@ export const login = (user) => {
     }
 }
 
-export const viewCurrentUser = () => {
+export const logout = () => {
     return {
-        type: 'VIEW_CURRENT_USER'
+        type: 'LOGOUT'
+    }
+}
+
+export const oauth = (oauthCredentials) => {
+    return {
+        type: 'OAUTH',
+        payload: oauthCredentials
+    }
+}
+
+export const linkBank = (bank) => {
+    return {
+        type: 'LINK_BANK',
+        payload: bank
     }
 }

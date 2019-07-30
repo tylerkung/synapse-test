@@ -15,7 +15,6 @@ export const userExists = email => {
 
 export const getUserFromLocal = (email, password) => {
     const data = localStorage[getUserLocalStorageKey(email)];
-    console.log(data);
     if (data) {
         const user = JSON.parse(data);
         if (user.password === password) {

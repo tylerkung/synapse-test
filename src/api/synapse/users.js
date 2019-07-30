@@ -2,7 +2,7 @@ import {
     storeUser,
     userExists
 } from "../fake-user-database";
-import { synapseProxy, synapseHeader } from "./api-settings";
+import { synapseProxy, getSynapseHeader } from "./api-settings";
 
 export default {
     createUser: async ({ firstName, lastName, email, password, phone }) => {
@@ -12,7 +12,7 @@ export default {
 
         const response = await fetch(`${synapseProxy}/users`, {
             method: "POST",
-            headers: synapseHeader,
+            headers: getSynapseHeader(),
             body: JSON.stringify({
                 logins: [{ email, password }],
                 phone_numbers: [phone],
@@ -39,7 +39,7 @@ export default {
     viewUser: async userId => {
         const response = await fetch(`${synapseProxy}/users/${userId}`, {
             method: "GET",
-            headers: synapseHeader
+            headers: getSynapseHeader()
         });
         const user = await response.json();
 
@@ -51,19 +51,5 @@ export default {
         }
 
         return user;
-    },
-
-    oauthUser: async (userId, refreshToken) => {
-        const response = await fetch(`${synapseProxy}/oauth/${userId}`, {
-            method: "POST",
-            headers: synapseHeader,
-            body: JSON.stringify({
-                refresh_token: refreshToken
-            })
-        });
-
-        const responseObj = await response.json();
-        // console.log(responseObj);
-        return responseObj;
     }
 };

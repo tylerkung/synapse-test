@@ -5,6 +5,7 @@ import { withRouter } from "react-router-dom";
 import Home from "./Home";
 import { Auth } from "../../../auth";
 import { storeCurrentOauth } from "../../../api/fake-user-database";
+import { logout, oauth } from '../../../actions';
 
 
 //move view user function somewhere
@@ -27,44 +28,54 @@ class HomeTab extends Component {
         };
 
         const viewUser = () => {
-            console.log('viewUser');
-            console.log(this.props);
-            // if (localStorage['loggedIn'] === 'true'){
-            //     console.log(localStorage['currentUser']);
-            //     console.log(localStorage['currentUserId']);
-            // } else{
-            //     return;
-            // }
+            console.log(this.props.currentUser);
         }
 
         const oauth = async () => {
-            console.log('oauth');
-            if (localStorage['loggedIn'] === 'true'){
-                const id = localStorage['currentUserId'];
-                const refreshToken = localStorage['currentUserRefreshToken'];
-                console.log(id);
-                const oauthuser = await Auth.oauth(id, refreshToken);
-                storeCurrentOauth(oauthuser.oauth_key)
-                console.log(oauthuser);
+            if (this.props.loggedIn){
+                const id = this.props.currentUser._id;
+                const refreshToken = this.props.currentUser.refresh_token;
+                this.props.oauth({id, refreshToken});
+            } else{
+                console.log('Not logged in');
             }
         }
 
+        const linkBank = () => {
+            this.props.history.push("/bank");
+        }
+
         const logout = () => {
-            console.log('logout');
-            localStorage['currentUser'] = '';
-            localStorage['loggedIn'] = false;
-            localStorage['currentUserId'] = '';
-            localStorage['currentUserRefreshToken'] = '';
+            this.props.logout();
+        }
+
+        const name = () => {
+            if (this.props.currentUser){
+                return this.props.currentUser.client.name;
+            }
+            return 'User';
         }
 
         return (
-            <Home onClickLogin={login} onClickRegister={register} onClickViewUser={viewUser} onClickOauth={oauth} onClickLogOut={logout}/>
+            <Home
+                onClickLogin={login}
+                onClickRegister={register}
+                onClickViewUser={viewUser}
+                onClickOauth={oauth}
+                onClickLogOut={logout}
+                onClickLinkBank={linkBank}
+                loggedIn={this.props.loggedIn}
+                name={name()}/>
         );
     }
 }
 
 const mapStateToProps = (state) => {
-    return { currentUser: state.currentUser };
+    console.log(state);
+    return {
+        loggedIn: state.loggedIn,
+        currentUser: state.currentUser
+    };
 }
 
-export default withRouter(connect(mapStateToProps)(HomeTab));
+export default withRouter(connect(mapStateToProps, { logout, oauth })(HomeTab));

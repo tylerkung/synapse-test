@@ -13,28 +13,44 @@ const Styles = stycom.div`
     }
 `;
 
-const Home = ({ onClickRegister, onClickLogin, onClickViewUser, onClickOauth, onClickLogOut }) => {
+const Home = ({ onClickRegister, onClickLogin, onClickViewUser, onClickOauth, onClickLogOut, onClickLinkBank, loggedIn, name }) => {
+    const showLoggedInButton = () => {
+        if (loggedIn) {
+            return (
+                <div>
+                    <h1>Welcome back, {name}</h1>
+                    <Button onClick={onClickLogOut} color="secondary">
+                        Log Out
+                    </Button>
+                    <Button onClick={onClickLinkBank} color="primary">
+                        Link Bank
+                    </Button>
+                    <Button onClick={onClickViewUser} color="secondary">
+                        View User
+                    </Button>
+                    <Button onClick={onClickOauth} color="secondary">
+                        Oauth User
+                    </Button>
+                </div>
+            );
+        } return (
+            <div>
+                <Button
+                    onClick={onClickRegister}
+                    variant="contained"
+                    color="primary"
+                >
+                    Register
+                </Button>
+                <Button onClick={onClickLogin} color="primary">
+                    Log In
+                </Button>
+            </div>
+        )
+    }
     return (
         <Styles>
-            <Button
-                onClick={onClickRegister}
-                variant="contained"
-                color="primary"
-            >
-                Register
-            </Button>
-            <Button onClick={onClickLogin} color="primary">
-                Log In
-            </Button>
-            <Button onClick={onClickViewUser} color="secondary">
-                View User
-            </Button>
-            <Button onClick={onClickOauth} color="secondary">
-                Oauth User
-            </Button>
-            <Button onClick={onClickLogOut} color="secondary">
-                Log Out
-            </Button>
+            {showLoggedInButton()}
         </Styles>
     );
 };

@@ -5,7 +5,6 @@ export const Auth = {
     login: async (email, password) => {
         try {
             const existingUser = getUserFromLocal(email, password);
-
             return SynapseAPI.viewUser(existingUser.userId);
         } catch (error) {
             throw error;
@@ -13,9 +12,7 @@ export const Auth = {
     },
     oauth: async (userId, refreshToken) => {
         try{
-            const currentUserId = getCurrentUserId();
-            const currentUserToken = getCurrentUserRefreshToken();
-            return SynapseAPI.oauthUser(currentUserId, currentUserToken);
+            return SynapseAPI.oauthUser(userId, refreshToken);
         } catch (error){
             throw error;
         }
