@@ -29,3 +29,14 @@
 		transform: rotate(360deg);
 	}
 }
+
+.card{
+	width: calc(50% - 30px);
+	margin: 0 15px;
+}
+.card-media{
+	height: 140px;
+}
+.MuiCardMedia-root{
+	background-size: contain !important;
+}

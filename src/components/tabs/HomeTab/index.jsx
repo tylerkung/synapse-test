@@ -3,13 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from "react-router-dom";
 
 import Home from "./Home";
-import { Auth } from "../../../auth";
-import { storeCurrentOauth } from "../../../api/fake-user-database";
 import { logout, oauth } from '../../../actions';
-
-
-//move view user function somewhere
-import SynapseAPI from "../../../api/synapse";
 
 class HomeTab extends Component {
     constructor(props){
@@ -29,16 +23,6 @@ class HomeTab extends Component {
 
         const viewUser = () => {
             console.log(this.props.currentUser.bankLinked);
-        }
-
-        const oauth = async () => {
-            if (this.props.loggedIn){
-                const id = this.props.currentUser._id;
-                const refreshToken = this.props.currentUser.refresh_token;
-                this.props.oauth({id, refreshToken});
-            } else{
-                console.log('Not logged in');
-            }
         }
 
         const linkBank = () => {
@@ -61,7 +45,6 @@ class HomeTab extends Component {
                 onClickLogin={login}
                 onClickRegister={register}
                 onClickViewUser={viewUser}
-                onClickOauth={oauth}
                 onClickLogOut={logout}
                 onClickLinkBank={linkBank}
                 loggedIn={this.props.loggedIn}

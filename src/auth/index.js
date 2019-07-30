@@ -1,4 +1,4 @@
-import { getUserFromLocal, getCurrentUserId, getCurrentUserRefreshToken, storeCurrentOauth } from "../api/fake-user-database";
+import { getUserFromLocal } from "../api/fake-user-database";
 import SynapseAPI from "../api/synapse";
 
 export const Auth = {

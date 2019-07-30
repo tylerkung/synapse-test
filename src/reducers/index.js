@@ -1,7 +1,6 @@
 // Reducers
 import { combineReducers } from 'redux';
 import { Auth } from "../auth";
-import SynapseAPI from '../api/synapse';
 
 const loggedInReducer = (login = false, action) => {
     if (action.type === 'LOGIN') {
@@ -35,9 +34,13 @@ const userReducer = (user = null, action) => {
     return user;
 }
 
-const bankReducer = (bank = {}, action) => {
+const bankReducer = (bank = [], action) => {
     if (action.type === 'LINK_BANK'){
-        const returnBank = action.payload.nodes;
+        const returnBank = bank;
+        Object.keys(action.payload.nodes).map(
+            (keyName, keyIndex) =>
+                returnBank.push(action.payload.nodes[keyName])
+        );
         return returnBank;
     }
 

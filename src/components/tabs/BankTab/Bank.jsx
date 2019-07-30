@@ -22,6 +22,10 @@ const Bank = ({ onSubmitLinkBank, loading, error }) => {
 
     return (
         <Styles>
+        <h2>Link Bank</h2>
+        <h4>Fake user data:</h4>
+        <p>Username: <strong>synapse_good</strong></p>
+        <p>Password: <strong>test1234</strong></p>
             <form
                 onSubmit={e => {
                     e.preventDefault();

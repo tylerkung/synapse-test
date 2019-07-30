@@ -14,7 +14,7 @@ const Styles = stycom.div`
     }
 `;
 
-const Home = ({ onClickRegister, onClickLogin, onClickViewUser, onClickOauth, onClickLogOut, onClickLinkBank, loggedIn, name, bankInfo }) => {
+const Home = ({ onClickRegister, onClickLogin, onClickViewUser, onClickLogOut, onClickLinkBank, loggedIn, name, bankInfo }) => {
     const showLoggedInButton = () => {
         if (loggedIn) {
             return (
@@ -23,14 +23,9 @@ const Home = ({ onClickRegister, onClickLogin, onClickViewUser, onClickOauth, on
                     <Button onClick={onClickLogOut} color="secondary">
                         Log Out
                     </Button>
-                    <Button onClick={onClickLinkBank} color="primary">
-                        Link Bank
-                    </Button>
+                    
                     <Button onClick={onClickViewUser} color="secondary">
                         View User
-                    </Button>
-                    <Button onClick={onClickOauth} color="secondary">
-                        Oauth User
                     </Button>
                 </div>
             );
