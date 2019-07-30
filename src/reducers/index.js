@@ -28,29 +28,6 @@ const userReducer = (user = null, action) => {
         return returnUser;
     }
 
-    else if (action.type === 'LINK_BANK'){
-        const returnUser = user;
-        const bankFunc = async () => {
-            const bankResponse = await SynapseAPI.linkBank(action.payload.id,
-                {
-                    username: action.payload.username,
-                    password: action.payload.password,
-                    bank_name: 'fake',
-                    nickname: 'Fake Account',
-                    account_num: '1232225674134',
-                    routing_num: '051000017',
-                    type: 'PERSONAL',
-                    class: 'CHECKING'
-                },
-                action.payload.oauth_key);
-            returnUser.bank = bankResponse.nodes;
-            console.log(bankResponse);
-        }
-        bankFunc();
-        // console.log(returnUser);
-        return returnUser;
-    }
-
     else if (action.type === 'LOGOUT') {
         return null;
     }
@@ -58,7 +35,25 @@ const userReducer = (user = null, action) => {
     return user;
 }
 
+const bankReducer = (bank = {}, action) => {
+    if (action.type === 'LINK_BANK'){
+        const returnBank = action.payload.nodes;
+        return returnBank;
+    }
+
+    return bank;
+}
+
+const bankLinkedReducer = (bankLinked = false, action) => {
+    if (action.type === 'LINK_BANK') {
+        return true;
+    }
+    return bankLinked;
+}
+
 export default combineReducers({
+    bank: bankReducer,
+    bankLinked: bankLinkedReducer,
     loggedIn: loggedInReducer,
     currentUser: userReducer,
 })

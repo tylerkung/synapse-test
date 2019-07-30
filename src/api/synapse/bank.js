@@ -1,18 +1,15 @@
 import { synapseProxy, getSynapseHeader } from "./api-settings";
 
 export default {
-    linkBank: async (userId, bankInfo, oauthKey) => {
-        // console.log(getSynapseHeader(oauthKey))
-        console.log(userId);
-        const response = await fetch(`${synapseProxy}/users/${userId}/nodes`, {
+    linkBank: async (credentials) => {
+        const response = await fetch(`${synapseProxy}/users/${credentials.id}/nodes`, {
             method: "POST",
-            headers: getSynapseHeader(oauthKey),
+            headers: getSynapseHeader(credentials.oauth_key),
             body: JSON.stringify({
                 type: 'ACH-US',
-                info: bankInfo
+                info: credentials.bankInfo
             })
         });
-
         return response.json();
     }
 }

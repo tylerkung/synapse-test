@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 import stycom from "styled-components";
+import BankInfo from '../../BankInfo';
 
 const Styles = stycom.div`
 
@@ -13,7 +14,7 @@ const Styles = stycom.div`
     }
 `;
 
-const Home = ({ onClickRegister, onClickLogin, onClickViewUser, onClickOauth, onClickLogOut, onClickLinkBank, loggedIn, name }) => {
+const Home = ({ onClickRegister, onClickLogin, onClickViewUser, onClickOauth, onClickLogOut, onClickLinkBank, loggedIn, name, bankInfo }) => {
     const showLoggedInButton = () => {
         if (loggedIn) {
             return (
@@ -48,9 +49,11 @@ const Home = ({ onClickRegister, onClickLogin, onClickViewUser, onClickOauth, on
             </div>
         )
     }
+
     return (
         <Styles>
             {showLoggedInButton()}
+            <BankInfo />
         </Styles>
     );
 };

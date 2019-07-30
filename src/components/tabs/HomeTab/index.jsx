@@ -28,7 +28,7 @@ class HomeTab extends Component {
         };
 
         const viewUser = () => {
-            console.log(this.props.currentUser);
+            console.log(this.props.currentUser.bankLinked);
         }
 
         const oauth = async () => {
@@ -65,14 +65,16 @@ class HomeTab extends Component {
                 onClickLogOut={logout}
                 onClickLinkBank={linkBank}
                 loggedIn={this.props.loggedIn}
-                name={name()}/>
+                name={name()}
+                bankInfo={{}}
+            />
         );
     }
 }
 
 const mapStateToProps = (state) => {
-    console.log(state);
     return {
+        bankLinked: state.bankLinked,
         loggedIn: state.loggedIn,
         currentUser: state.currentUser
     };

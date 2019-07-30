@@ -19,7 +19,7 @@ export const oauth = (oauthCredentials) => {
     }
 }
 
-export const linkBank = (bank) => {
+export const bank = (bank) => {
     return {
         type: 'LINK_BANK',
         payload: bank

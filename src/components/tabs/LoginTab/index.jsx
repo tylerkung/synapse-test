@@ -44,6 +44,7 @@ class LoginView extends Component {
 
 const mapStateToProps = (state) => {
     return {
+        bankLinked: state.bankLinked,
         loggedIn: state.loggedIn,
         currentUser: state.currentUser
     };
