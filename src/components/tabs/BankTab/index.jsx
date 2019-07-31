@@ -36,7 +36,6 @@ class LoginView extends Component {
                 }
 
                 const bank = await SynapseAPI.linkBank(bankCredentials); //get bank data
-
                 this.props.bank(bank); //store bank data in Redux
                 this.props.history.push("/"); //go to homepage
             } catch (error) {

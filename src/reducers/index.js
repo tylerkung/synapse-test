@@ -5,7 +5,7 @@ import { Auth } from "../auth";
 const loggedInReducer = (login = false, action) => {
     if (action.type === 'LOGIN') {
         return true;
-    } if (action.type === 'LOGOUT'){
+    } else if (action.type === 'LOGOUT'){
         return false;
     }
     return login;
@@ -43,6 +43,9 @@ const bankReducer = (bank = [], action) => {
         );
         return returnBank;
     }
+    if (action.type === 'LOGOUT'){
+        return [];
+    }
 
     return bank;
 }
@@ -50,6 +53,8 @@ const bankReducer = (bank = [], action) => {
 const bankLinkedReducer = (bankLinked = false, action) => {
     if (action.type === 'LINK_BANK') {
         return true;
+    } if (action.type === 'LOGOUT'){
+        return false;
     }
     return bankLinked;
 }

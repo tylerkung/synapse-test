@@ -23,9 +23,8 @@ const Home = ({ onClickRegister, onClickLogin, onClickViewUser, onClickLogOut, o
                     <Button onClick={onClickLogOut} color="secondary">
                         Log Out
                     </Button>
-                    
-                    <Button onClick={onClickViewUser} color="secondary">
-                        View User
+                    <Button onClick={onClickLinkBank} color="primary">
+                        Link Bank
                     </Button>
                 </div>
             );

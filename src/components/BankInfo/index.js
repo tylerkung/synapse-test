@@ -51,7 +51,7 @@ class BankInfo extends Component {
                             <h5>Balance: ${this.props.bank[keyName].info.balance.amount}</h5>
                         </CardContent>
                         <CardActions>
-                            <Button>
+                            <Button disabled>
                                 View
                             </Button>
                         </CardActions>
