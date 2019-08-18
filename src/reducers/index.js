@@ -61,6 +61,9 @@ const transactionReducer = (transactions = [], action) => {
     if (action.type === 'GET_TRANSACTIONS') {
         return transactions;
     }
+    if (action.type === 'LOGOUT'){
+        transactions = [];
+    }
     return transactions;
 }
 

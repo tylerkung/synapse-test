@@ -34,7 +34,7 @@ const Styles = stycom.div`
     }
 `;
 
-const Home = ({onClickViewUser, onClickRegister, loggedIn, name, bankInfo }) => {
+const Home = ({onClickViewUser, onClickRegister, loggedIn, name, bankInfo, transactions }) => {
     const showLoggedInButton = () => {
         if (loggedIn) {
             return (
@@ -43,7 +43,8 @@ const Home = ({onClickViewUser, onClickRegister, loggedIn, name, bankInfo }) => 
                     <h2>Send Money</h2>
                     <BankInfo />
                     <SendTransaction />
-                    <TransactionHistory />
+                    <h2>Transaction History</h2>
+                    <TransactionHistory transactions={transactions}/>
                 </div>
             );
         } return (

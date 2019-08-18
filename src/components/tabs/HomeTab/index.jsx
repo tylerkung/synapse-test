@@ -38,6 +38,7 @@ class HomeTab extends Component {
                 loggedIn={this.props.loggedIn}
                 name={name()}
                 bankInfo={{}}
+                transactions={this.props.transactionHistory}
             />
         );
     }
@@ -45,6 +46,7 @@ class HomeTab extends Component {
 
 const mapStateToProps = (state) => {
     return {
+        transactionHistory: state.transactions,
         bankLinked: state.bankLinked,
         loggedIn: state.loggedIn,
         currentUser: state.currentUser

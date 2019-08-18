@@ -29,7 +29,6 @@ class LoginView extends Component {
                     const oauthValue = await Auth.oauth(user._id, user.refresh_token);
                     this.props.oauth(oauthValue);
                     this.props.history.push("/"); //go to homepage
-                    console.log(this.props.currentUser);
                 }
             } catch (error) {
                 this.setState({

@@ -22,6 +22,13 @@ const Styles = stycom.div`
     .formControl{
         width: 100%;
     }
+    .transaction-btn{
+        &:hover{
+            background-color: #083232;
+        }
+        background-color: #58af85;
+        color: #fff;
+    }
 `;
 
 class SendTransaction extends Component {
@@ -37,7 +44,8 @@ class SendTransaction extends Component {
             receivingNode: '',
             error: '',
             availableNodes: [],
-            nodesReady: false
+            nodesReady: false,
+            sending: false
         }
 
         this.handleToChange = this.handleToChange.bind(this);
@@ -45,6 +53,7 @@ class SendTransaction extends Component {
         this.handleAmountChange = this.handleAmountChange.bind(this);
         this.onSubmitTransaction = this.onSubmitTransaction.bind(this);
         this.getNode = this.getNode.bind(this);
+        this.clearFields = this.clearFields.bind(this);
     }
 
     getNode = async (id, nodeOwner) => {
@@ -94,7 +103,17 @@ class SendTransaction extends Component {
         })
     }
 
+    clearFields(){
+        this.setState({
+            toUser: '',
+            sendingNode: '',
+            amount: '',
+            nodeReady: false
+        })
+    }
+
     onSubmitTransaction = async () => {
+        this.setState({sending: true});
         const transactionData = {
             senderId: this.props.currentUser._id,
             senderNodeId: this.state.sendingNode._id,
@@ -104,8 +123,10 @@ class SendTransaction extends Component {
             oauthKey: this.props.currentUser.oauth_key
         }
         try {
-            console.log('send Transaction');
             const transaction = await SynapseAPI.addTransaction(transactionData);
+            this.props.addTransaction(transaction);
+            this.clearFields();
+            this.setState({sending: false});
         } catch (error) {
             this.setState({
                 error: error.message
@@ -124,7 +145,7 @@ class SendTransaction extends Component {
                     }}>
                     <Grid container spacing={3}>
                         <Grid item xs={12} sm={6}>
-                            <FormControl required className="formControl">
+                            <FormControl required disabled={this.state.sending} className="formControl">
                                 <InputLabel htmlFor="to">To</InputLabel>
                                 <Select
                                     value={this.state.toUser}
@@ -141,7 +162,7 @@ class SendTransaction extends Component {
                             </FormControl>
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <FormControl required disabled={!this.state.nodesReady} className="formControl">
+                            <FormControl required disabled={!this.state.nodesReady || this.state.sending } className="formControl">
                                 <InputLabel htmlFor="node">Node</InputLabel>
                                 <Select
                                     value={this.state.sendingNode}
@@ -158,27 +179,27 @@ class SendTransaction extends Component {
                             </FormControl>
                         </Grid>
                         <Grid item xs={12}>
-                            <FormControl required className="formControl">
-                            <TextField
-                                id="standard-number"
-                                label="Amount"
-                                value={this.state.amount}
-                                onChange={this.handleAmountChange}
-                                InputLabelProps={{
-                                  shrink: true
-                                }}
-                                margin="normal"
-                            />
+                            <FormControl required disabled={this.state.sending} className="formControl">
+                                <TextField
+                                    id="standard-number"
+                                    label="Amount"
+                                    value={this.state.amount}
+                                    onChange={this.handleAmountChange}
+                                    InputLabelProps={{
+                                      shrink: true
+                                    }}
+                                    disabled={this.state.sending}
+                                    margin="normal"
+                                />
                             </FormControl>
                         </Grid>
                         <Button
                             type="submit"
-                        >Send</Button>
+                            disabled={this.state.sending}
+                            className="transaction-btn"
+                        >{this.state.sending ? "Sending..." : "Send"}</Button>
                     </Grid>
                 </form>
-                <button onClick={() => {
-                    console.log(this.state);
-                }}>Get User</button>
             </Styles>
         );
     }

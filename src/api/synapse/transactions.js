@@ -21,7 +21,6 @@ export default {
         });
 
         const transactionResponse = await response.json();
-        console.log(transactionResponse)
         if (transactionResponse.error){
             throw new Error(transactionResponse.error.en);
         }
