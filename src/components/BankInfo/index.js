@@ -32,7 +32,7 @@ class BankInfo extends Component {
             bankLinked: false
         }
     }
-
+    
     render(){
         const bankList = Object.keys(this.props.bank).map(
             (keyName, keyIndex) => {
@@ -72,9 +72,6 @@ class BankInfo extends Component {
         else if (this.props.loggedIn){
             return (
                 <div>
-                    <h2>
-                        Link Bank by pressing 'Link Bank' button
-                    </h2>
                 </div>
             );
         }

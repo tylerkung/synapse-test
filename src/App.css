@@ -30,6 +30,16 @@
 	}
 }
 
+img{
+	max-width: 100%;
+}
+
+@media (min-width: 768px){
+	h1.lg{
+		font-size: 300%;
+	}
+}
+
 .card{
 	width: calc(50% - 30px);
 	margin: 0 15px;
@@ -39,4 +49,7 @@
 }
 .MuiCardMedia-root{
 	background-size: contain !important;
+}
+.MuiSelect-selectMenu{
+	text-align: left;
 }

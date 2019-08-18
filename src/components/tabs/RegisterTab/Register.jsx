@@ -77,7 +77,8 @@ const Register = ({ onClickJoin, loading, error }) => {
                 onChange={e => {
                     var n = e.target.value
                         .replace(/\D/g, "")
-                        .match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+                        .match(/((\d{1,3}(,\d{3})+|\d+)(\.(\d\d))?)/);
+                        console.log(n);
                     const number = !n[2]
                         ? n[1]
                         : "(" + n[1] + ") " + n[2] + (n[3] ? "-" + n[3] : "");

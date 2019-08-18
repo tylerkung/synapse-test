@@ -1,6 +1,5 @@
 // Reducers
 import { combineReducers } from 'redux';
-import { Auth } from "../auth";
 
 const loggedInReducer = (login = false, action) => {
     if (action.type === 'LOGIN') {
@@ -17,14 +16,9 @@ const userReducer = (user = null, action) => {
     }
 
     else if (action.type === 'OAUTH'){
-        const returnUser = user;
-        const oauthFunc = async () => {
-            const oauthResponse = await Auth.oauth(action.payload.id, action.payload.refreshToken);
-            returnUser.oauth = oauthResponse;
-            sessionStorage['oauth_key'] = oauthResponse.oauth_key;
-        }
-        oauthFunc();
-        return returnUser;
+        user.oauth = action.payload;
+        user.oauth_key = action.payload.oauth_key;
+        return user;
     }
 
     else if (action.type === 'LOGOUT') {
@@ -59,9 +53,21 @@ const bankLinkedReducer = (bankLinked = false, action) => {
     return bankLinked;
 }
 
+const transactionReducer = (transactions = [], action) => {
+    if (action.type === 'ADD_TRANSACTION'){
+        transactions.push(action.payload);
+        return transactions;
+    }
+    if (action.type === 'GET_TRANSACTIONS') {
+        return transactions;
+    }
+    return transactions;
+}
+
 export default combineReducers({
     bank: bankReducer,
     bankLinked: bankLinkedReducer,
     loggedIn: loggedInReducer,
     currentUser: userReducer,
+    transactions: transactionReducer
 })

@@ -10,6 +10,11 @@ export default {
             })
         });
 
-        return response.json();
+        const oauthResponse = await response.json();
+        if (oauthResponse.error){
+            throw new Error(oauthResponse.error.en);
+        }
+
+        return oauthResponse;
     }
 }

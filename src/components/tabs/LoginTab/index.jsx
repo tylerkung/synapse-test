@@ -26,8 +26,10 @@ class LoginView extends Component {
                 if (user) {
                     delete sessionStorage['oauth_key'];
                     this.props.login(user); //sets Redux state login credentials, loggedIn status
-                    this.props.oauth({id: user._id, refreshToken: user.refresh_token});
+                    const oauthValue = await Auth.oauth(user._id, user.refresh_token);
+                    this.props.oauth(oauthValue);
                     this.props.history.push("/"); //go to homepage
+                    console.log(this.props.currentUser);
                 }
             } catch (error) {
                 this.setState({

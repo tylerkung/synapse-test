@@ -12,10 +12,10 @@ export const logout = () => {
     }
 }
 
-export const oauth = (oauthCredentials) => {
+export const oauth = (oauthData) => {
     return {
         type: 'OAUTH',
-        payload: oauthCredentials
+        payload: oauthData
     }
 }
 
@@ -23,5 +23,18 @@ export const bank = (bank) => {
     return {
         type: 'LINK_BANK',
         payload: bank
+    }
+}
+
+export const addTransaction = (transaction) => {
+    return{
+        type: 'ADD_TRANSACTION',
+        payload: transaction
+    }
+}
+
+export const transactions = () => {
+    return {
+        type: 'GET_TRANSACTIONS'
     }
 }

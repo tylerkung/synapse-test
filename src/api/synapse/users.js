@@ -20,8 +20,6 @@ export default {
             })
         });
 
-        console.log(response);
-
         const user = await response.json();
 
         if (user.error) {
@@ -42,7 +40,6 @@ export default {
             headers: getSynapseHeader()
         });
         const user = await response.json();
-
         if (user.error) {
             if (user.error.en.includes("password")) {
                 throw new Error("Password isn't strong enough");

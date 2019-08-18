@@ -10,43 +10,31 @@ class HomeTab extends Component {
         super(props);
 
         this.state = {}
+
+        this.register = this.register.bind(this);
+    }
+
+    register(){
+        this.props.history.push("/register");
     }
 
     render(){
-        const login = () => {
-            this.props.history.push("/login");
-        };
-
-        const register = () => {
-            this.props.history.push("/register");
-        };
 
         const viewUser = () => {
             console.log(this.props.currentUser.bankLinked);
         }
 
-        const linkBank = () => {
-            this.props.history.push("/bank");
-        }
-
-        const logout = () => {
-            this.props.logout();
-        }
-
         const name = () => {
             if (this.props.currentUser){
-                return this.props.currentUser.client.name;
+                return this.props.currentUser.legal_names[0];
             }
             return 'User';
         }
 
         return (
             <Home
-                onClickLogin={login}
-                onClickRegister={register}
                 onClickViewUser={viewUser}
-                onClickLogOut={logout}
-                onClickLinkBank={linkBank}
+                onClickRegister={this.register}
                 loggedIn={this.props.loggedIn}
                 name={name()}
                 bankInfo={{}}
