@@ -42,7 +42,7 @@ class AppLogo extends Component {
             <Styles>
                 <Typography variant="h6" color="inherit" className="title">
                     <div className="logo" onClick={this.goHome}>
-                        Synapse
+                        SynPay
                     </div>
                 </Typography>
             </Styles>
